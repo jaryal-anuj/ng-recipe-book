@@ -2,28 +2,23 @@ import { Recipe } from './recipe.modal';
 import { Injectable } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.modal';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { Subject } from 'rxjs';
 
 
 @Injectable()
 export class RecipeService{
   
-    private recipes:Recipe[]=[
-        new Recipe(
-            'A Test recipe', 
-            'This is simply a test', 
-            'https://www.telegraph.co.uk/content/dam/food-and-drink/2019/01/11/TELEMMGLPICT000185036503_trans_NvBQzQNjv4BqodXSHHE-j78vyZ0iwRUmY_nuzprQ_mxVCWqrJBTJk3A.jpeg',
-            [new Ingredient('Meat',2), new Ingredient('French Fries',10)] 
-            ),
-        new Recipe(
-            'A Super recipe', 
-            'This is bitter a test', 
-            'https://www.telegraph.co.uk/content/dam/food-and-drink/2019/01/11/TELEMMGLPICT000185036503_trans_NvBQzQNjv4BqodXSHHE-j78vyZ0iwRUmY_nuzprQ_mxVCWqrJBTJk3A.jpeg',
-            [new Ingredient('Buns',2), new Ingredient('French Fries',5)]
-        )
-    ];
+    recipesChanged = new Subject<Recipe[]>();
+
+    private recipes:Recipe[]=[];
 
     constructor(private slService:ShoppingListService){
 
+    }
+
+    setRecipes(recipes:Recipe[]){
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
     }
 
     getRecipes(){
@@ -36,5 +31,21 @@ export class RecipeService{
 
     addIngredientsToShoppingList(ingredients:Ingredient[]){
         this.slService.addIngredients(ingredients);
+    }
+
+    addRecipe(recipe:Recipe){
+        this.recipes.push(recipe);
+        this.recipesChanged.next(this.recipes.slice());
+    
+    }
+
+    updateRecipe(index:number, newRecipe:Recipe){
+        this.recipes[index] = newRecipe;
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    deleteRecipe(index:number){
+        this.recipes.splice(index,1);
+        this.recipesChanged.next(this.recipes.slice());
     }
 }
