@@ -17,6 +17,11 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(private route:ActivatedRoute, private recipeService:RecipeService, private router:Router) { }
 
+
+  get ingredientsControls(){
+	  return (this.recipeForm.get('ingredients') as FormArray).controls;
+  }
+
   ngOnInit() {
     this.route.params.subscribe((params:Params)=>{
       this.id = +params['id'];
