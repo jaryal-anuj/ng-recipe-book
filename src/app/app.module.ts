@@ -5,7 +5,7 @@ import {  ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
 import { StoreModule } from '@ngrx/store';
@@ -13,6 +13,8 @@ import * as fromApp from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/store/auth.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
+import { RecipeEffects } from './recipes/store/recipe.effects';
 
 
 @NgModule({
@@ -28,9 +30,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer),
         StoreDevtoolsModule.instrument({
-          maxAge: 25, // Retains last 25 states
+          logOnly: environment.production, 
         }),
-        EffectsModule.forRoot([AuthEffects]),
+        StoreRouterConnectingModule.forRoot(),
+        EffectsModule.forRoot([AuthEffects,RecipeEffects]),
         SharedModule,
         CoreModule
 
