@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Ingredient } from 'src/app/shared/ingredient.modal';
+import { Ingredient } from '../../shared/ingredient.modal';
 
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const UPDATE_INGREDIENT = 'UPDATE_INGREDIENT';

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Ingredient } from 'src/app/shared/ingredient.modal';
+import { Ingredient } from '../../shared/ingredient.modal';
 
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';

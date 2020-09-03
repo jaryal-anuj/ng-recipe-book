@@ -13,7 +13,7 @@ import * as fromApp from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/store/auth.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
 import { RecipeEffects } from './recipes/store/recipe.effects';
 
 
@@ -24,7 +24,7 @@ import { RecipeEffects } from './recipes/store/recipe.effects';
 
     ],
     imports: [
-        BrowserModule,
+        BrowserModule.withServerTransition({appId: 'my-app'}),
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
